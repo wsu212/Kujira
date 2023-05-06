@@ -11,11 +11,30 @@ import Combine
 final class RegistrationViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
+    @Published var isRegistered = false
     
+    var cancellables: Set<AnyCancellable> = []
+    
+    /// A closure that takes email & password as parameter, and returns a publisher
     let register: (String, String) -> AnyPublisher<(data: Data, response: URLResponse), URLError>
     
-    init(register: @escaping (String, String) -> AnyPublisher<(data: Data, response: URLResponse), URLError>) {
+    init(
+        register: @escaping (String, String) -> AnyPublisher<(data: Data, response: URLResponse), URLError>
+    ) {
         self.register = register
+    }
+    
+    func registerButtonTapped() {
+        register(
+            self.email,
+            self.password
+        )
+        .map { data, _ in
+            Bool(String(decoding: data, as: UTF8.self)) ?? false
+        }
+        .replaceError(with: false)
+        .sink { self.isRegistered = $0 }
+        .store(in: &cancellables)
     }
 }
 
@@ -24,21 +43,24 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("Email")) {
-                    TextField(
-                        "blob@kujira.co",
-                        text: .constant("")
-                    )
+            if viewModel.isRegistered {
+                Text("Welcome!")
+            } else {
+                Form {
+                    Section(header: Text("Email")) {
+                        TextField(
+                            "blob@kujira.co",
+                            text: $viewModel.email
+                        )
+                    }
+                    Section(header: Text("Password")) {
+                        TextField(
+                            "Password",
+                            text: $viewModel.password
+                        )
+                    }
+                    Button("Register") { viewModel.registerButtonTapped() }
                 }
-                Section(header: Text("Password")) {
-                    TextField(
-                        "Password",
-                        text: .constant("")
-                    )
-                }
-                
-                Button("Register") {  }
             }
         }
     }
