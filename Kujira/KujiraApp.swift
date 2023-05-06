@@ -6,13 +6,20 @@
 //
 
 import SwiftUI
+import Combine
 import ComposableArchitecture
 
 @main
 struct KujiraApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: .init(
+                register: { _, _ in
+                    Just((Data("true".utf8), URLResponse()))
+                        .setFailureType(to: URLError.self)
+                        .eraseToAnyPublisher()
+                }
+            ))
         }
     }
 }
