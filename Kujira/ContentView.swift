@@ -9,9 +9,15 @@ import SwiftUI
 import Combine
 
 final class RegistrationViewModel: ObservableObject {
+    struct Alert: Identifiable {
+        var title: String
+        var id: String { self.title }
+    }
     @Published var email = ""
     @Published var password = ""
     @Published var isRegistered = false
+    @Published var isRegisterRequestInFlight = false
+    @Published var errorAlert: Alert?
     
     var cancellables: Set<AnyCancellable> = []
     
@@ -25,6 +31,7 @@ final class RegistrationViewModel: ObservableObject {
     }
     
     func registerButtonTapped() {
+        self.isRegisterRequestInFlight = true
         register(
             self.email,
             self.password
@@ -33,7 +40,13 @@ final class RegistrationViewModel: ObservableObject {
             Bool(String(decoding: data, as: UTF8.self)) ?? false
         }
         .replaceError(with: false)
-        .sink { self.isRegistered = $0 }
+        .sink {
+            self.isRegistered = $0
+            self.isRegisterRequestInFlight = false
+            if !$0 {
+                self.errorAlert = .init(title: "Failed to register. Please try again.")
+            }
+        }
         .store(in: &cancellables)
     }
 }
@@ -59,9 +72,16 @@ struct ContentView: View {
                             text: $viewModel.password
                         )
                     }
-                    Button("Register") { viewModel.registerButtonTapped() }
+                    if viewModel.isRegisterRequestInFlight {
+                        Text("Registering...")
+                    } else {
+                        Button("Register") { viewModel.registerButtonTapped() }
+                    }
                 }
             }
+        }
+        .alert(item: self.$viewModel.errorAlert) { errorAlert in
+            Alert(title: Text(errorAlert.title))
         }
     }
 }
@@ -70,8 +90,9 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(viewModel: .init(
             register: { _, _ in
-                Just((data: Data("true".utf8), URLResponse()))
+                Just((data: Data("false".utf8), URLResponse()))
                     .setFailureType(to: URLError.self)
+                    .delay(for: 1, scheduler: DispatchQueue.main)
                     .eraseToAnyPublisher()
             })
         )
