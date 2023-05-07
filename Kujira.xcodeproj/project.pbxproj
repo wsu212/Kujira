@@ -11,7 +11,7 @@
 		4CAB9AEB29FDD81C005A9076 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB9AEA29FDD81C005A9076 /* ContentView.swift */; };
 		4CAB9AED29FDD81F005A9076 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CAB9AEC29FDD81F005A9076 /* Assets.xcassets */; };
 		4CAB9AF129FDD81F005A9076 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CAB9AF029FDD81F005A9076 /* Preview Assets.xcassets */; };
-		4CAB9AFB29FDD81F005A9076 /* KujiraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB9AFA29FDD81F005A9076 /* KujiraTests.swift */; };
+		4CAB9AFB29FDD81F005A9076 /* RegistrationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB9AFA29FDD81F005A9076 /* RegistrationViewModelTests.swift */; };
 		4CAB9B0529FDD81F005A9076 /* KujiraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB9B0429FDD81F005A9076 /* KujiraUITests.swift */; };
 		4CAB9B0729FDD81F005A9076 /* KujiraUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB9B0629FDD81F005A9076 /* KujiraUITestsLaunchTests.swift */; };
 		4CAB9B1529FDD8DF005A9076 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 4CAB9B1429FDD8DF005A9076 /* ComposableArchitecture */; };
@@ -42,7 +42,7 @@
 		4CAB9AEE29FDD81F005A9076 /* Kujira.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kujira.entitlements; sourceTree = "<group>"; };
 		4CAB9AF029FDD81F005A9076 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4CAB9AF629FDD81F005A9076 /* KujiraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KujiraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CAB9AFA29FDD81F005A9076 /* KujiraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KujiraTests.swift; sourceTree = "<group>"; };
+		4CAB9AFA29FDD81F005A9076 /* RegistrationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModelTests.swift; sourceTree = "<group>"; };
 		4CAB9B0029FDD81F005A9076 /* KujiraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KujiraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CAB9B0429FDD81F005A9076 /* KujiraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KujiraUITests.swift; sourceTree = "<group>"; };
 		4CAB9B0629FDD81F005A9076 /* KujiraUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KujiraUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 		4CAB9AF929FDD81F005A9076 /* KujiraTests */ = {
 			isa = PBXGroup;
 			children = (
-				4CAB9AFA29FDD81F005A9076 /* KujiraTests.swift */,
+				4CAB9AFA29FDD81F005A9076 /* RegistrationViewModelTests.swift */,
 			);
 			path = KujiraTests;
 			sourceTree = "<group>";
@@ -276,7 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CAB9AFB29FDD81F005A9076 /* KujiraTests.swift in Sources */,
+				4CAB9AFB29FDD81F005A9076 /* RegistrationViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
