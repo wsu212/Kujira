@@ -18,7 +18,8 @@ struct KujiraApp: App {
                     Just((Data("true".utf8), URLResponse()))
                         .setFailureType(to: URLError.self)
                         .eraseToAnyPublisher()
-                }
+                },
+                validatePassword: mockValidate(password:)
             ))
         }
     }

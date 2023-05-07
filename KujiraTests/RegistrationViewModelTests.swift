@@ -42,6 +42,9 @@ final class RegistrationViewModelTests: XCTestCase {
         // 2. user tapes registration button
         vm.registerButtonTapped()
         
+        // 3. wait for a small amount of time before we assert
+        _ = XCTWaiter.wait(for: [XCTestExpectation()], timeout: 0.1)
+        
         // Then
         XCTAssertEqual(isRegistered, [false, true])
     }
@@ -64,6 +67,9 @@ final class RegistrationViewModelTests: XCTestCase {
         
         // 2. user tapes registration button
         vm.registerButtonTapped()
+        
+        // 3. wait for a small amount of time before we assert
+        _ = XCTWaiter.wait(for: [XCTestExpectation()], timeout: 0.1)
         
         // Then:
         // 1. user is not registered

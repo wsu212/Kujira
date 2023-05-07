@@ -15,6 +15,7 @@ final class RegistrationViewModel: ObservableObject {
     }
     @Published var email = ""
     @Published var password = ""
+    @Published var passwordValidationMessage = ""
     @Published var isRegistered = false
     @Published var isRegisterRequestInFlight = false
     @Published var errorAlert: Alert?
@@ -25,7 +26,8 @@ final class RegistrationViewModel: ObservableObject {
     let register: (String, String) -> AnyPublisher<(data: Data, response: URLResponse), URLError>
     
     init(
-        register: @escaping (String, String) -> AnyPublisher<(data: Data, response: URLResponse), URLError>
+        register: @escaping (String, String) -> AnyPublisher<(data: Data, response: URLResponse), URLError>,
+        validatePassword: @escaping (String) -> AnyPublisher<(data: Data, response: URLResponse), URLError>
     ) {
         self.register = register
     }
@@ -72,6 +74,9 @@ struct ContentView: View {
                             "Password",
                             text: $viewModel.password
                         )
+                        if !viewModel.passwordValidationMessage.isEmpty {
+                            Text(viewModel.passwordValidationMessage)
+                        }
                     }
                     if viewModel.isRegisterRequestInFlight {
                         Text("Registering...")
@@ -87,15 +92,28 @@ struct ContentView: View {
     }
 }
 
+func mockValidate(password: String) -> AnyPublisher<(data: Data, response: URLResponse), URLError> {
+    let message = password.count < 5 ? "Password is too short"
+    : password.count > 20 ? "Password is too long"
+    : "Password is good"
+    
+    return Just((Data(message.utf8), URLResponse()))
+        .setFailureType(to: URLError.self)
+        .eraseToAnyPublisher()
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(viewModel: .init(
-            register: { _, _ in
-                Just((data: Data("false".utf8), URLResponse()))
-                    .setFailureType(to: URLError.self)
-                    .delay(for: 1, scheduler: DispatchQueue.main)
-                    .eraseToAnyPublisher()
-            })
+        ContentView(
+            viewModel: .init(
+                register: { _, _ in
+                    Just((data: Data("false".utf8), URLResponse()))
+                        .setFailureType(to: URLError.self)
+                        .delay(for: 1, scheduler: DispatchQueue.main)
+                        .eraseToAnyPublisher()
+                },
+                validatePassword: mockValidate(password:)
+            )
         )
     }
 }
