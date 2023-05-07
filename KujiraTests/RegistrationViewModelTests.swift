@@ -10,6 +10,8 @@ import Combine
 @testable import Kujira
 
 final class RegistrationViewModelTests: XCTestCase {
+    var cancellables: Set<AnyCancellable> = []
+    
     func test_registerationSuccessful() {
         let vm = RegistrationViewModel(
             register: { _, _ in
@@ -19,18 +21,29 @@ final class RegistrationViewModelTests: XCTestCase {
             }
         )
         
-        XCTAssertFalse(vm.isRegistered)
+        var isRegistered: [Bool] = []
+        
+        vm.$isRegistered
+            .sink {
+                isRegistered.append($0)
+            }
+            .store(in: &cancellables)
+        
+        XCTAssertEqual(isRegistered, [false])
         
         // When:
         // 1. user enters email & password
         vm.email = "blob@kujira.co"
+        XCTAssertEqual(isRegistered, [false])
+        
         vm.password = "kujira is awesome"
+        XCTAssertEqual(isRegistered, [false])
         
         // 2. user tapes registration button
         vm.registerButtonTapped()
         
         // Then
-        XCTAssertTrue(vm.isRegistered)
+        XCTAssertEqual(isRegistered, [false, true])
     }
     
     func test_registerationFailure() {

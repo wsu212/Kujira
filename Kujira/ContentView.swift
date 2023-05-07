@@ -36,6 +36,7 @@ final class RegistrationViewModel: ObservableObject {
             self.email,
             self.password
         )
+        .receive(on: DispatchQueue.main)
         .map { data, _ in
             Bool(String(decoding: data, as: UTF8.self)) ?? false
         }
