@@ -93,9 +93,9 @@ struct ContentView: View {
 }
 
 func mockValidate(password: String) -> AnyPublisher<(data: Data, response: URLResponse), URLError> {
-    let message = password.count < 5 ? "Password is too short"
-    : password.count > 20 ? "Password is too long"
-    : "Password is good"
+    let message = password.count < 5 ? "Password is too short 👎"
+    : password.count > 20 ? "Password is too long 👎"
+    : "Password is good 👍"
     
     return Just((Data(message.utf8), URLResponse()))
         .setFailureType(to: URLError.self)
