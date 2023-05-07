@@ -13,14 +13,15 @@ import ComposableArchitecture
 struct KujiraApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: .init(
-                register: { _, _ in
-                    Just((Data("true".utf8), URLResponse()))
-                        .setFailureType(to: URLError.self)
-                        .eraseToAnyPublisher()
-                },
-                validatePassword: mockValidate(password:)
-            ))
+            DeezerView()
+//            ContentView(viewModel: .init(
+//                register: { _, _ in
+//                    Just((Data("true".utf8), URLResponse()))
+//                        .setFailureType(to: URLError.self)
+//                        .eraseToAnyPublisher()
+//                },
+//                validatePassword: mockValidate(password:)
+//            ))
         }
     }
 }
