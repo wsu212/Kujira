@@ -13,15 +13,17 @@ import ComposableArchitecture
 struct KujiraApp: App {
     var body: some Scene {
         WindowGroup {
-            DeezerView()
-//            ContentView(viewModel: .init(
-//                register: { _, _ in
-//                    Just((Data("true".utf8), URLResponse()))
-//                        .setFailureType(to: URLError.self)
-//                        .eraseToAnyPublisher()
-//                },
-//                validatePassword: mockValidate(password:)
-//            ))
+            ArtistView(
+                vm: .init(
+                    getArtist: { id in
+                        URLSession.shared
+                            .dataTaskPublisher(for: URL(string: "https://api.deezer.com/artist/\(id)")!)
+                            .tryMap(\.data)
+                            .decode(type: Artist.self, decoder: JSONDecoder())
+                            .eraseToAnyPublisher()
+                    }
+                )
+            )
         }
     }
 }

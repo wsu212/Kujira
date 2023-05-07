@@ -1,5 +1,5 @@
 //
-//  DeezerView.swift
+//  ArtistView.swift
 //  Kujira
 //
 //  Created by 蘇偉綸 on 2023/5/7.
@@ -9,32 +9,45 @@ import Foundation
 import Combine
 import SwiftUI
 
-final class DeezerClient {
-    var cancellables: Set<AnyCancellable> = []
+final class ArtistViewModel: ObservableObject {
     
-    func getArtist(id: Int) {
-        let url = URL(string: "https://api.deezer.com/artist/\(id)")!
-        
-        URLSession.shared
-            .dataTaskPublisher(for: url)
-            .tryMap(\.data)
-            .decode(type: Artist.self, decoder: JSONDecoder())
+    @Published var artist: Artist?
+    
+    private var getArtist: (Int) -> AnyPublisher<Artist, Error>
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
+    init(
+        getArtist: @escaping (Int) -> AnyPublisher<Artist, Error>
+    ) {
+        self.getArtist = getArtist
+    }
+    
+    func onAppear(id: Int) {
+        self.getArtist(id)
+            .receive(on: DispatchQueue.main)
             .sink(
-                receiveCompletion: { print ("#### Received completion: \($0).") },
-                receiveValue: { print("#### Received artist: \($0).")}
+                receiveCompletion: { _ in },
+                receiveValue: { self.artist = $0 }
             )
             .store(in: &cancellables)
     }
 }
 
-struct DeezerView: View {
-    var client: DeezerClient = .init()
+struct ArtistView: View {
+    @ObservedObject var vm: ArtistViewModel
     
     var body: some View {
-        Text("DEEZER")
-            .onAppear {
-                client.getArtist(id: 5919)
+        VStack {
+            if let name = vm.artist?.name {
+                Text(name)
+            } else {
+                Text("🎼")
             }
+        }
+        .onAppear {
+            vm.onAppear(id: 5919)
+        }
     }
 }
 
