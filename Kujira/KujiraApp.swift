@@ -11,17 +11,14 @@ import ComposableArchitecture
 
 @main
 struct KujiraApp: App {
+
+    private let deezerClient: DeezerClient = .init()
+
     var body: some Scene {
         WindowGroup {
             ArtistView(
                 vm: .init(
-                    getArtist: { id in
-                        URLSession.shared
-                            .dataTaskPublisher(for: URL(string: "https://api.deezer.com/artist/\(id)")!)
-                            .tryMap(\.data)
-                            .decode(type: Artist.self, decoder: JSONDecoder())
-                            .eraseToAnyPublisher()
-                    }
+                    getArtist: deezerClient.getArtist(id:)
                 )
             )
         }
