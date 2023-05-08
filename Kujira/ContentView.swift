@@ -30,6 +30,22 @@ final class RegistrationViewModel: ObservableObject {
         validatePassword: @escaping (String) -> AnyPublisher<(data: Data, response: URLResponse), URLError>
     ) {
         self.register = register
+        
+        self.$password
+            .flatMap { password in
+                password.isEmpty
+                ? Just("").eraseToAnyPublisher()
+                : validatePassword(password)
+                    .map { data, _ in
+                        String(decoding: data, as: UTF8.self)
+                    }
+                    .replaceError(with: "Could not validate password.")
+                    .eraseToAnyPublisher()
+            }
+            .sink { [weak self] in
+                self?.passwordValidationMessage = $0
+            }
+            .store(in: &self.cancellables)
     }
     
     func registerButtonTapped() {

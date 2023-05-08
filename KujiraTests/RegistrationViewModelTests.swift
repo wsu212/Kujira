@@ -18,7 +18,8 @@ final class RegistrationViewModelTests: XCTestCase {
                 Just((Data("true".utf8), URLResponse()))
                     .setFailureType(to: URLError.self)
                     .eraseToAnyPublisher()
-            }
+            },
+            validatePassword: { _ in Empty(completeImmediately: true).eraseToAnyPublisher() }
         )
         
         var isRegistered: [Bool] = []
@@ -55,7 +56,8 @@ final class RegistrationViewModelTests: XCTestCase {
                 Just((Data("false".utf8), URLResponse()))
                     .setFailureType(to: URLError.self)
                     .eraseToAnyPublisher()
-            }
+            },
+            validatePassword: { _ in Empty(completeImmediately: true).eraseToAnyPublisher() }
         )
         
         XCTAssertFalse(vm.isRegistered)
@@ -76,5 +78,31 @@ final class RegistrationViewModelTests: XCTestCase {
         XCTAssertFalse(vm.isRegistered)
         // 2. A SwiftUI alert view is presented
         XCTAssertEqual(vm.errorAlert?.title, "Failed to register. Please try again.")
+    }
+    
+    func test_validatePassword() {
+        let vm = RegistrationViewModel(
+            register: { _, _ in fatalError() },
+            validatePassword: mockValidate(password:)
+        )
+        
+        var passwordValidationMessage: [String] = []
+        
+        vm.$passwordValidationMessage
+            .sink {
+                passwordValidationMessage.append($0)
+            }
+            .store(in: &cancellables)
+        
+        XCTAssertEqual(passwordValidationMessage, [""])
+        
+        vm.password = "blob"
+        XCTAssertEqual(passwordValidationMessage, ["", "Password is too short 👎"])
+        
+        vm.password = "blob is awesome"
+        XCTAssertEqual(passwordValidationMessage, ["", "Password is too short 👎", "Password is good 👍"])
+        
+        vm.password = "blob is really awesome"
+        XCTAssertEqual(passwordValidationMessage, ["", "Password is too short 👎", "Password is good 👍", "Password is too long 👎"])
     }
 }
