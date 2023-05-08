@@ -101,11 +101,11 @@ final class RegistrationViewModelTests: XCTestCase {
         XCTAssertEqual(passwordValidationMessage, ["", "Password is too short 👎"])
         
         vm.password = "blob is awesome"
-        _ = XCTWaiter.wait(for: [XCTestExpectation()], timeout: 0.21)
-        XCTAssertEqual(passwordValidationMessage, ["", "Password is too short 👎"])
+        _ = XCTWaiter.wait(for: [XCTestExpectation()], timeout: 0.31)
+        XCTAssertEqual(passwordValidationMessage, ["", "Password is too short 👎", "Password is good 👍"])
         
         vm.password = "blob is really awesome !!!!"
         _ = XCTWaiter.wait(for: [XCTestExpectation()], timeout: 0.31)
-        XCTAssertEqual(passwordValidationMessage, ["", "Password is too short 👎", "Password is too long 👎"])
+        XCTAssertEqual(passwordValidationMessage, ["", "Password is too short 👎", "Password is good 👍", "Password is too long 👎"])
     }
 }
