@@ -11,16 +11,16 @@ import ComposableArchitecture
 
 @main
 struct KujiraApp: App {
+
+    private let deezerClient: DeezerClient = .init()
+
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: .init(
-                register: { _, _ in
-                    Just((Data("true".utf8), URLResponse()))
-                        .setFailureType(to: URLError.self)
-                        .eraseToAnyPublisher()
-                },
-                validatePassword: mockValidate(password:)
-            ))
+            ArtistView(
+                vm: .init(
+                    getArtist: deezerClient.getArtist(id:)
+                )
+            )
         }
     }
 }
