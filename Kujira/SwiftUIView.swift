@@ -9,54 +9,54 @@ import Foundation
 import Combine
 import SwiftUI
 
-final class ArtistViewModel: ObservableObject {
+final class ViewModel: ObservableObject {
     
-    @Published var artist: Artist?
+    @Published var games: [Game]?
     
-    private var getArtist: (Int) -> AnyPublisher<Artist, Error>
+    private var getGames: () -> AnyPublisher<[Game], Error>
     
     private var cancellables: Set<AnyCancellable> = []
     
     init(
-        getArtist: @escaping (Int) -> AnyPublisher<Artist, Error>
+        getGames: @escaping () -> AnyPublisher<[Game], Error>
     ) {
-        self.getArtist = getArtist
+        self.getGames = getGames
     }
     
-    func onAppear(id: Int) {
-        self.getArtist(id)
+    func fetchGames() {
+        self.getGames()
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { _ in },
-                receiveValue: { self.artist = $0 }
+                receiveValue: { self.games = $0 }
             )
             .store(in: &cancellables)
     }
 }
 
-struct ArtistView: View {
-    @ObservedObject var vm: ArtistViewModel
+struct SwiftUIView: View {
+    @ObservedObject var vm: ViewModel
     
     var body: some View {
-        VStack {
-            if let name = vm.artist?.name {
-                Text(name)
-            } else {
-                Text("🎼")
+        List(self.vm.games ?? []) { game in
+            VStack(alignment: .leading) {
+                Text(game.title)
+                Text(game.genre)
+                Text(game.developer)
             }
         }
         .onAppear {
-            vm.onAppear(id: 5919)
+            vm.fetchGames()
         }
     }
 }
 
 struct ArtistView_Previews: PreviewProvider {
     static var previews: some View {
-        ArtistView(
+        SwiftUIView(
             vm: .init(
-                getArtist: { _ in
-                    Just(Artist.mock)
+                getGames: {
+                    Just([Game.mock])
                         .setFailureType(to: Error.self)
                         .eraseToAnyPublisher()
                 }
