@@ -1,5 +1,5 @@
 //
-//  ArtistView.swift
+//  SwiftUIView.swift
 //  Kujira
 //
 //  Created by 蘇偉綸 on 2023/5/7.
@@ -51,7 +51,7 @@ struct SwiftUIView: View {
     }
 }
 
-struct ArtistView_Previews: PreviewProvider {
+struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
         SwiftUIView(
             vm: .init(
