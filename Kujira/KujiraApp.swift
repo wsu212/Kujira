@@ -12,13 +12,13 @@ import ComposableArchitecture
 @main
 struct KujiraApp: App {
 
-    private let deezerClient: DeezerClient = .init()
+    private let vaporClient: VaporClient = .init()
 
     var body: some Scene {
         WindowGroup {
-            ArtistView(
+            SwiftUIView(
                 vm: .init(
-                    getArtist: deezerClient.getArtist(id:)
+                    getGames: vaporClient.getGames
                 )
             )
         }

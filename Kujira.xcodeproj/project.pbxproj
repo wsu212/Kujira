@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4CA68E582A083BE40098E963 /* ArtistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA68E572A083BE40098E963 /* ArtistView.swift */; };
-		4CA68E5F2A085D740098E963 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA68E5E2A085D740098E963 /* Artist.swift */; };
-		4CA68E612A0860930098E963 /* DeezerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA68E602A0860930098E963 /* DeezerClient.swift */; };
+		4C79ECAB2A3F419B00B6D2EC /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79ECAA2A3F419B00B6D2EC /* Game.swift */; };
+		4CA68E582A083BE40098E963 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA68E572A083BE40098E963 /* SwiftUIView.swift */; };
+		4CA68E612A0860930098E963 /* VaporClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA68E602A0860930098E963 /* VaporClient.swift */; };
 		4CAB9AE929FDD81C005A9076 /* KujiraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB9AE829FDD81C005A9076 /* KujiraApp.swift */; };
 		4CAB9AEB29FDD81C005A9076 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB9AEA29FDD81C005A9076 /* ContentView.swift */; };
 		4CAB9AED29FDD81F005A9076 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CAB9AEC29FDD81F005A9076 /* Assets.xcassets */; };
@@ -38,9 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4CA68E572A083BE40098E963 /* ArtistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistView.swift; sourceTree = "<group>"; };
-		4CA68E5E2A085D740098E963 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
-		4CA68E602A0860930098E963 /* DeezerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeezerClient.swift; sourceTree = "<group>"; };
+		4C79ECAA2A3F419B00B6D2EC /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		4CA68E572A083BE40098E963 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		4CA68E602A0860930098E963 /* VaporClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaporClient.swift; sourceTree = "<group>"; };
 		4CAB9AE529FDD81C005A9076 /* Kujira.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kujira.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CAB9AE829FDD81C005A9076 /* KujiraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KujiraApp.swift; sourceTree = "<group>"; };
 		4CAB9AEA29FDD81C005A9076 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,9 +105,9 @@
 			children = (
 				4CAB9AE829FDD81C005A9076 /* KujiraApp.swift */,
 				4CAB9AEA29FDD81C005A9076 /* ContentView.swift */,
-				4CA68E572A083BE40098E963 /* ArtistView.swift */,
-				4CA68E5E2A085D740098E963 /* Artist.swift */,
-				4CA68E602A0860930098E963 /* DeezerClient.swift */,
+				4CA68E572A083BE40098E963 /* SwiftUIView.swift */,
+				4C79ECAA2A3F419B00B6D2EC /* Game.swift */,
+				4CA68E602A0860930098E963 /* VaporClient.swift */,
 				4CAB9AEC29FDD81F005A9076 /* Assets.xcassets */,
 				4CAB9AEE29FDD81F005A9076 /* Kujira.entitlements */,
 				4CAB9AEF29FDD81F005A9076 /* Preview Content */,
@@ -277,10 +277,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CAB9AEB29FDD81C005A9076 /* ContentView.swift in Sources */,
-				4CA68E612A0860930098E963 /* DeezerClient.swift in Sources */,
+				4C79ECAB2A3F419B00B6D2EC /* Game.swift in Sources */,
+				4CA68E612A0860930098E963 /* VaporClient.swift in Sources */,
 				4CAB9AE929FDD81C005A9076 /* KujiraApp.swift in Sources */,
-				4CA68E5F2A085D740098E963 /* Artist.swift in Sources */,
-				4CA68E582A083BE40098E963 /* ArtistView.swift in Sources */,
+				4CA68E582A083BE40098E963 /* SwiftUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
